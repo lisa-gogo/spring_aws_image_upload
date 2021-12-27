@@ -58,7 +58,34 @@ public class UserProfileService {
         String path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(),user.getUserProfileId());
         String filename = String.format("%s-%s",file.getOriginalFilename(),UUID.randomUUID());
         try {fileStore.save(path,filename,Optional.of(metadata),file.getInputStream());
+
+            user.setUserProfileImageLink(filename);
+            fakeUserProfileDataStore.updateUserImageLink(filename,user.getUserProfileId());
+
+
     } catch(IOException e){
            throw new IllegalStateException(e);
+
         }
-}}
+}
+// download
+
+    private UserProfile getUserProfileOrThrow(Long userProfileId) {
+        return fakeUserProfileDataStore.findAll()
+                .stream()
+                .filter(userProfile -> userProfile.getUserProfileId().equals(userProfileId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException(String.format("User profile %s not found", userProfileId)));
+    }
+
+    public byte[] downloadUserProfileImage(Long userProfileId) {
+       UserProfile user = getUserProfileOrThrow( userProfileId);
+        String path = String.format("%s/%s",
+                BucketName.PROFILE_IMAGE.getBucketName(),
+                user.getUserProfileId());
+
+        return user.getUserProfileImageLink()
+                .map(key -> fileStore.download(path, key))
+                .orElse(new byte[0]);
+    }
+}
