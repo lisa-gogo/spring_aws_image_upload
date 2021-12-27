@@ -1,16 +1,30 @@
 package com.lisa.spring_aws_image_upload.profile;
 
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 
+@Entity
+@Table
 public class UserProfile {
 
-    private UUID userProfileId;
+    @Id
+    @SequenceGenerator(
+            name = "person_sequence",
+            sequenceName = "person_sequence",
+            allocationSize = 1
+
+
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "person_sequence"
+    )
+    private Long userProfileId;
     private String username;
     private String userProfileImageLink;
 
-    public UserProfile(UUID userProfileId,
+    public UserProfile(Long userProfileId,
                        String username,
                        String userProfileImageLink) {
         this.userProfileId = userProfileId;
@@ -18,11 +32,15 @@ public class UserProfile {
         this.userProfileImageLink = userProfileImageLink;
     }
 
-    public UUID getUserProfileId() {
+    public UserProfile() {
+
+    }
+
+    public Long getUserProfileId() {
         return userProfileId;
     }
 
-    public void setUserProfileId(UUID userProfileId) {
+    public void setUserProfileId(Long userProfileId) {
         this.userProfileId = userProfileId;
     }
 
@@ -40,6 +58,15 @@ public class UserProfile {
 
     public void setUserProfileImageLink(String userProfileImageLink) {
         this.userProfileImageLink = userProfileImageLink;
+    }
+
+    @Override
+    public String toString() {
+        return "UserProfile{" +
+                "userProfileId=" + userProfileId +
+                ", username='" + username + '\'' +
+                ", userProfileImageLink='" + userProfileImageLink + '\'' +
+                '}';
     }
 
     @Override
