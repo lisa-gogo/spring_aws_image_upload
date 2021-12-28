@@ -5,12 +5,17 @@ import React, { useEffect,useState,useCallback } from 'react'
 
 import {useDropzone} from 'react-dropzone'
 
-const UserProfiles =()=>{
+
+const UserProfiles =({userProfiles,setUserProiles})=>{
   
- const [userProfiles, setUserProiles] = useState([])
   const fetchUserProfile=()=>{
     axios.get("http://localhost:8080/api/v1/user-profile").then(res=>{
-       setUserProiles(res.data);
+       const sorted = res.data;
+       console.log(sorted)
+       sorted.sort((a,b)=>{
+        return b.userProfileId - a.userProfileId
+       })
+       setUserProiles(sorted);
 
     })
    
@@ -25,7 +30,7 @@ const UserProfiles =()=>{
     return(
       <div key={index}>
         {/* todo profile image */}
-        {userProfiles.userProfileId ? <img src={`http://localhost:8080/api/v1/user-profile/${userProfiles.userProfileId}/image/download`}></img>:<></>}
+        {userProfiles.userProfileId ? <img src={`http://localhost:8080/api/v1/user-profile/${userProfiles.userProfileId}/image/download`} alt='Drag new image below'></img>:<></>}
         <br/>
         <br/>
         <h1>{userProfiles.username}</h1>
@@ -52,7 +57,8 @@ function Dropzone({userProfileId}) {
          headers:{
            "Content-Type":"multipart/form-data"
          }
-       }).then(()=>{console.log("file uploaded successfully")}).catch(err=>console.log(err));
+       }).then(()=>{console.log("file uploaded successfully");
+      window.location.reload();}).catch(err=>console.log(err));
   }, [])
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
@@ -68,12 +74,29 @@ function Dropzone({userProfileId}) {
   )
 }
 //add 
-const Add=()=>{
+const Add=({userProfiles, setUserProiles})=>{
+   const [name,setName] = useState("");
+   var start =2;
+  const recordName = (e)=>{
+    setName(e.target.value)
+  }
+  
+  const handleName =(e)=>{
+    // e.preventDefault()
+  
+    
+    var num = start+1;
+    start = start +1
+    const user = {"userProfileId":"","username":name,"userProfileImageLink":null}
+    axios.post('http://localhost:8080/api/v1/user-profile/add',user).then(console.log("successfully add new user")).catch(err=>console.log(err))
+    setUserProiles([{userProfileId:num, username:name,userProfileImageLink:null},...userProfiles])
+   }
+  
   return(
     <div className="input">
     <div class="input-group w-50 mb-3">
-    <input type="text" class="form-control" placeholder="New username" aria-label="Recipient's username" aria-describedby="button-addon2" />
-    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Add</button>
+    <input value={name} onChange={recordName} type="text" class="form-control" placeholder="New username" aria-label="Recipient's username" aria-describedby="button-addon2" />
+    <button onClick={handleName} class="btn btn-outline-secondary" type="button" id="button-addon2">Add</button>
    </div>
     </div>
   )
@@ -90,13 +113,25 @@ const Title=()=>{
   )
 }
 
+// Profiles 
+
+const Profiles =()=>{
+  const [userProfiles, setUserProiles] = useState([])
+  return(
+    <>
+     <Add userProfiles={userProfiles} setUserProiles={setUserProiles}/>
+      <UserProfiles userProfiles={userProfiles} setUserProiles={setUserProiles} />
+    </>
+  )
+}
+
 
 function App() {
   return (
     <div className="App">
       <Title/>
-      <Add/>
-      <UserProfiles/>
+      <Profiles/>
+     
     </div>
   );
 }

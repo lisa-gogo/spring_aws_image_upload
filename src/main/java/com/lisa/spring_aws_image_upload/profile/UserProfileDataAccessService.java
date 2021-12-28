@@ -36,12 +36,12 @@ public class UserProfileDataAccessService {
             UserProfile lisa = new UserProfile(
                     1l,
                     "lisa",
-                      null
+                    "lisa.jpg-17111c85-a92d-4369-a8e6-e1b5f2ffb191"
             );
             UserProfile Tom = new UserProfile(
                     3l,
                     "Tom",
-                    null
+                    "tom.jpg-48b24c8f-8313-4cc6-9e5a-71aac5095ff7"
             );
 
             repository.saveAll(List.of(lisa,Tom));

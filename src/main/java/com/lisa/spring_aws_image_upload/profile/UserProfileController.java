@@ -43,4 +43,11 @@ public class UserProfileController {
        return userProfileService.downloadUserProfileImage(userProfileId);
     }
 
+    @PostMapping("/add")
+    public String add(@RequestBody UserProfile newUser){
+         userProfileService.saveStudent(newUser);
+         return "Successfully add new user";
+
+    }
+
 }

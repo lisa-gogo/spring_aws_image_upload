@@ -28,7 +28,11 @@ public class UserProfileService {
        this.fileStore = fileStore;
    }
 
-   List<UserProfile> getUserProfile(){
+    public void saveStudent(UserProfile newUser) {
+       fakeUserProfileDataStore.save(newUser);
+    }
+
+    List<UserProfile> getUserProfile(){
        return fakeUserProfileDataStore.findAll();
    }
 
@@ -88,4 +92,6 @@ public class UserProfileService {
                 .map(key -> fileStore.download(path, key))
                 .orElse(new byte[0]);
     }
+
+
 }
