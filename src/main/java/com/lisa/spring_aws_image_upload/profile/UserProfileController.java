@@ -34,12 +34,13 @@ public class UserProfileController {
     )
     public void uploadUserProfileImage(@PathVariable("userProfileId")Long userProfileId,
                                        @RequestParam("file")MultipartFile file){
+        System.out.println(userProfileId);
         userProfileService.uploadUserProfileImage(userProfileId,file);
     }
 
     @GetMapping("{userProfileId}/image/download")
     public byte[] downloadUserProfileImage(@PathVariable("userProfileId") Long userProfileId){
-       System.out.println(userProfileId);
+
        return userProfileService.downloadUserProfileImage(userProfileId);
     }
 
@@ -47,6 +48,12 @@ public class UserProfileController {
     public String add(@RequestBody UserProfile newUser){
          userProfileService.saveStudent(newUser);
          return "Successfully add new user";
+
+    }
+    @DeleteMapping("/delete/{userProfileId}")
+    public String deleteUser(@PathVariable("userProfileId") Long userProfileId){
+        userProfileService.delete(userProfileId);
+        return "Successfully delete";
 
     }
 

@@ -94,4 +94,8 @@ public class UserProfileService {
     }
 
 
+    public void delete(Long userProfileId) {
+     var user =  fakeUserProfileDataStore.getOne(userProfileId);
+     fakeUserProfileDataStore.delete(user);
+    }
 }

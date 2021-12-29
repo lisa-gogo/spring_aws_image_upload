@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: url("../public/bg.jpg");
   background-size: cover;
+  font-family: "Karla", sans-serif;
 }
 
 code {
@@ -15,9 +16,11 @@ code {
 }
 
 .title {
-  padding-top: 25px;
+  padding-top: 15px;
   font-size: 30px;
   font-weight: bolder;
+  color: black;
+  background-color: white;
 }
 
 .input {
@@ -36,8 +39,49 @@ code {
   border-color: black;
   border-style: dashed;
   color: black;
+  font-weight: 600;
 }
 
 .des {
   margin-bottom: 15px;
+  background-color: #add8e6;
+  font-weight: 600;
+}
+
+.wholeProfile {
+  background-color: white;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-bottom: 10px;
+  background-size: cover;
+  padding: 15px;
+  border-radius: 5%;
+}
+
+.upload {
+  color: #00ced1;
+  font-weight: 600;
+}
+
+.img-delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.trash {
+  margin-left: 30px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#trashBin {
+  width: 45px;
+}
+
+.name {
+  font-weight: bolder;
 }
