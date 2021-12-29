@@ -44,7 +44,8 @@ public class UserProfileDataAccessService {
                     "tom.jpg-48b24c8f-8313-4cc6-9e5a-71aac5095ff7"
             );
 
-            repository.saveAll(List.of(lisa,Tom));
+            repository.save(lisa);
+            repository.save(Tom);
         };
     }
 
