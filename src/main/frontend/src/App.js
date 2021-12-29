@@ -9,7 +9,7 @@ import {useDropzone} from 'react-dropzone'
 const UserProfiles =({userProfiles,setUserProiles})=>{
   
   const fetchUserProfile=()=>{
-    axios.get("http://localhost:8080/api/v1/user-profile").then(res=>{
+    axios.get("http://lisa-first-po.herokuapp.com/api/v1/user-profile").then(res=>{
        const sorted = res.data;
    
        sorted.sort((a,b)=>{
@@ -29,7 +29,7 @@ const UserProfiles =({userProfiles,setUserProiles})=>{
   
   const handleDelete=(e)=>{
    
-     axios.delete(`http://localhost:8080/api/v1/user-profile/delete/${e}`).then('user deleted').catch(err=>console.log(err))
+     axios.delete(`http://lisa-first-po.herokuapp.com/api/v1/user-profile/delete/${e}`).then('user deleted').catch(err=>console.log(err))
      window.location.reload()
   }
   return userProfiles.map((userProfiles,index) =>{
@@ -39,7 +39,7 @@ const UserProfiles =({userProfiles,setUserProiles})=>{
       key={index}>
         {/* todo profile image */}
         <div className="img-delete">
-          {userProfiles.userProfileImageLink ? <img src={`http://localhost:8080/api/v1/user-profile/${userProfiles.userProfileId}/image/download`} alt='Drag new image below'></img>:<div className="upload">Upload a image below ~ </div>}
+          {userProfiles.userProfileImageLink ? <img src={`http://lisa-first-po.herokuapp.com/api/v1/user-profile/${userProfiles.userProfileId}/image/download`} alt='Drag new image below'></img>:<div className="upload">Upload a image below ~ </div>}
           <div className="trash"><i pi ={userProfiles.userProfileId} onClick={()=>handleDelete(userProfiles.userProfileId)} id="trashBin" class="fas fa-trash-alt fa-2x"></i></div>
         </div>
         
@@ -65,10 +65,10 @@ function Dropzone({userProfileId}) {
        
        const formData = new FormData();
        formData.append("file",file);
-        axios.get("http://localhost:8080/api/v1/user-profile").then(
+        axios.get("http://lisa-first-po.herokuapp.com/api/v1/user-profile").then(
           user=>{
             var id = user.data.pop().userProfileId
-            axios.post(`http://localhost:8080/api/v1/user-profile/${id}/image/upload`,
+            axios.post(`http://lisa-first-po.herokuapp.com/api/v1/user-profile/${id}/image/upload`,
        formData,{
          headers:{
            "Content-Type":"multipart/form-data"
@@ -103,13 +103,13 @@ const Add=({userProfiles, setUserProiles})=>{
   const handleName =(e)=>{
     // e.preventDefault()
     
-     axios.get("http://localhost:8080/api/v1/user-profile").then(users=>{
+     axios.get("http://lisa-first-po.herokuapp.com/api/v1/user-profile").then(users=>{
        var  users = users.data
        var lastId = users.pop().userProfileId+1
        
        console.log("get last userId"+lastId)
       const user = {"userProfileId":"","username":name,"userProfileImageLink":null}
-     axios.post('http://localhost:8080/api/v1/user-profile/add',user).then(console.log("successfully add new user")).catch(err=>console.log(err))
+     axios.post('http://lisa-first-po.herokuapp.com/api/v1/user-profile/add',user).then(console.log("successfully add new user")).catch(err=>console.log(err))
     setUserProiles([{userProfileId:lastId, username:name,userProfileImageLink:null},...userProfiles])
     setName('')
        
