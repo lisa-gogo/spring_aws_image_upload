@@ -23,7 +23,7 @@ const UserProfiles =({userProfiles,setUserProiles})=>{
 
   useEffect(()=>{
     fetchUserProfile();
-  },[]);
+  });
   
   //delete
   
@@ -32,27 +32,33 @@ const UserProfiles =({userProfiles,setUserProiles})=>{
      axios.delete(`http://lisa-first-po.herokuapp.com/api/v1/user-profile/delete/${e}`).then('user deleted').catch(err=>console.log(err))
      window.location.reload()
   }
-  return userProfiles.map((userProfiles,index) =>{
+  return (
+    <div className='container'>
+    {userProfiles.map((userProfiles,index) =>{
     
     return(
       <div className="wholeProfile"
       key={index}>
         {/* todo profile image */}
         <div className="img-delete">
-          {userProfiles.userProfileImageLink ? <img src={`http://lisa-first-po.herokuapp.com/api/v1/user-profile/${userProfiles.userProfileId}/image/download`} alt='Drag new image below'></img>:<div className="upload">Upload a image below ~ </div>}
+          {userProfiles.userProfileImageLink ? <img src={`http://lisa-first-po.herokuapp.com/api/v1/user-profile/${userProfiles.userProfileId}/image/download`} alt='Drag new below'></img>:<div className="upload"><p className='uw'>Upload a image below ~</p> </div>}
+          <div className='right'>
           <div className="trash"><i pi ={userProfiles.userProfileId} onClick={()=>handleDelete(userProfiles.userProfileId)} id="trashBin" class="fas fa-trash-alt fa-2x"></i></div>
+           <div className="like"><i class="far fa-heart fa-2x"></i></div>
+           <div className="comment"><i class="fas fa-comment-medical fa-2x"></i></div>
+           </div>
         </div>
         
     
         <br/>
         <br/>
         <h1 className="name">{userProfiles.username}</h1>
-        <p>User name</p>
+        <p>data</p>
         <Dropzone userProfileId={userProfiles.userProfileId}/>
          <br/>
       </div>
     )
-  })
+  })}</div>)
 }
 
 
@@ -132,10 +138,10 @@ const Add=({userProfiles, setUserProiles})=>{
 const Title=()=>{
   return(
     <>
-    <div className="title">
-     Welcome !
+    <div className="title"> <div className='happyFace'><i class="far fa-smile-wink"></i></div>
+     <p> Upload your photos !</p>
     </div>
-    <div className="des">You can add new user and drag a picture here.</div>
+    <div className="des">Add new user and drag a picture here.</div>
     </>
   )
 }
