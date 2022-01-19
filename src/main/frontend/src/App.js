@@ -8,8 +8,8 @@ import {useDropzone} from 'react-dropzone'
 
 const UserProfiles =({userProfiles,setUserProiles})=>{
   
-  const fetchUserProfile=()=>{
-    axios.get("http://lisa-first-po.herokuapp.com/api/v1/user-profile").then(res=>{
+  const fetchUserProfile= async ()=>{
+   await axios.get("http://lisa-first-po.herokuapp.com/api/v1/user-profile").then(res=>{
        const sorted = res.data;
    
        sorted.sort((a,b)=>{
