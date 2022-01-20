@@ -113,3 +113,7 @@ code {
 .happyFace {
   margin-right: 2px;
 }
+.left {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
