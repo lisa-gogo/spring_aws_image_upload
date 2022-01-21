@@ -150,3 +150,8 @@ code {
   color: black;
   text-decoration: none;
 }
+
+.connect {
+  font-size: larger;
+  font-weight: bold;
+}

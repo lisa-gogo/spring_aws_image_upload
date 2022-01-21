@@ -3,10 +3,10 @@ import React from 'react';
 const Loading = () => {
   return(
       <div>
-          <div>
+          <div className='connect'>
             Connecting to database .......
           </div>;
-          <img src='../../public/load.gif' alt='wait'></img>
+         
       </div>
   ) 
 };
