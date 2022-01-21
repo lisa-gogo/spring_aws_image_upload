@@ -9,7 +9,7 @@ const Like = (like,fetchUserProfile)=>{
     const handleLike= async(id)=>{
       console.log(id)
       setUserLike(!userLike)
-      await axios.post(`http://localhost:8080/api/v1/user-profile/likes/${id}`).then(()=>console.log('likes update successful'))
+      await axios.post(`https://lisa-first-po.herokuapp.com/api/v1/user-profile/likes/${id}`).then(()=>console.log('likes update successful'))
       .catch(err=>console.log(err))
     }
    return(

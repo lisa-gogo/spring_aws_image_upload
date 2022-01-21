@@ -14,7 +14,7 @@ import Myfavoriate from './components/Myfavoriate';
 const UserProfiles =({userProfiles,setUserProiles})=>{
   
   const fetchUserProfile= async ()=>{ 
-   await axios.get("http://localhost:8080/api/v1/user-profile").then(res=>{
+   await axios.get("https://lisa-first-po.herokuapp.com/api/v1/user-profile").then(res=>{
        const sorted = res.data;
    
        sorted.sort((a,b)=>{
@@ -34,7 +34,7 @@ const UserProfiles =({userProfiles,setUserProiles})=>{
   
   const handleDelete= async(e)=>{
    
-     await axios.delete(`http://localhost:8080/api/v1/user-profile/delete/${e}`).then('user deleted').catch(err=>console.log(err))
+     await axios.delete(`https://lisa-first-po.herokuapp.com/api/v1/user-profile/delete/${e}`).then('user deleted').catch(err=>console.log(err))
      fetchUserProfile()
   }
 
@@ -53,7 +53,7 @@ const UserProfiles =({userProfiles,setUserProiles})=>{
         {/* todo profile image */}
         <div className="img-delete">
           <div className='left'>
-              {userProfiles.userProfileImageLink ? <img src={`http://localhost:8080/api/v1/user-profile/${userProfiles.userProfileId}/image/download`} alt='Drag new below'></img>:<div className="upload"><p className='uw'>Upload a image below ~</p> </div>}
+              {userProfiles.userProfileImageLink ? <img src={`https://lisa-first-po.herokuapp.com/api/v1/user-profile/${userProfiles.userProfileId}/image/download`} alt='Drag new below'></img>:<div className="upload"><p className='uw'>Upload a image below ~</p> </div>}
               <Comment comment={comment} fetchUserProfile={fetchUserProfile} id={userProfiles.userProfileId}/>
               
              
@@ -84,11 +84,11 @@ function Dropzone({userProfileId,fetchUserProfile}) {
        
        const formData = new FormData();
        formData.append("file",file);
-        axios.get("http://localhost:8080/api/v1/user-profile").then(
+        axios.get("https://lisa-first-po.herokuapp.com/api/v1/user-profile").then(
           user=>{
             var id = user.data.pop().userProfileId
           // id is its true id 
-            axios.post(`http://localhost:8080/api/v1/user-profile/${id}/image/upload`,
+            axios.post(`https://lisa-first-po.herokuapp.com/api/v1/user-profile/${id}/image/upload`,
        formData,{
          headers:{
            "Content-Type":"multipart/form-data"

@@ -9,11 +9,11 @@ function Dropzone({userProfileId,fetchUserProfile}) {
          
          const formData = new FormData();
          formData.append("file",file);
-          axios.get("http://localhost:8080/api/v1/user-profile").then(
+          axios.get("https://lisa-first-po.herokuapp.com/api/v1/user-profile").then(
             user=>{
               var id = user.data.pop().userProfileId
             // id is its true id 
-              axios.post(`http://localhost:8080/api/v1/user-profile/${id}/image/upload`,
+              axios.post(`https://lisa-first-po.herokuapp.com/api/v1/user-profile/${id}/image/upload`,
          formData,{
            headers:{
              "Content-Type":"multipart/form-data"

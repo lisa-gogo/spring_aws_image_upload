@@ -15,7 +15,7 @@ const Comment =({comment,fetchUserProfile,id})=>{
     }
      const handleComment =async(id)=>{
     console.log(input)
-    await axios.post(`http://localhost:8080/api/v1/user-profile/comments/${id}/${input}`).then(()=>
+    await axios.post(`https://lisa-first-po.herokuapp.com/api/v1/user-profile/comments/${id}/${input}`).then(()=>
     console.log("comment uploaded successfully")).catch(err=>console.log(err))
  
  

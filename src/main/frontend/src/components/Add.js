@@ -15,9 +15,9 @@ const Add=({userProfiles, setUserProiles})=>{
         var date = today.getFullYear()+'-'+(today.getMonth()+1);
         
       const user = {"userProfileId":"","username":name,"userProfileImageLink":null,"comment":"no comment yet","userLikes":false,"addDate": date }
-      axios.post("http://localhost:8080/api/v1/user-profile/add",user).then(console.log("successfully add new user")).catch(err=>console.log(err))
+      axios.post("https://lisa-first-po.herokuapp.com/api/v1/user-profile/add",user).then(console.log("successfully add new user")).catch(err=>console.log(err))
      
-     await axios.get("http://localhost:8080/api/v1/user-profile").then(res=>{
+     await axios.get("https://lisa-first-po.herokuapp.com/api/v1/user-profile").then(res=>{
      const sorted = res.data;
      console.log('get data')
       

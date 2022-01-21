@@ -8,7 +8,7 @@ const Myfavoriate = () => {
   const [like,setLikes] = useState([])
 
   const fetchUserProfile= async ()=>{ 
-    await axios.get("http://localhost:8080/api/v1/user-profile/allLikes").then(res=>{  
+    await axios.get("https://lisa-first-po.herokuapp.com/api/v1/user-profile/allLikes").then(res=>{  
         const sorted = res.data;
         sorted.sort((a,b)=>{
          return b.userProfileId - a.userProfileId
@@ -23,7 +23,7 @@ const Myfavoriate = () => {
 
      const handleDelete= async(e)=>{
    
-     await axios.delete(`http://localhost:8080/api/v1/user-profile/delete/${e}`).then('user deleted').catch(err=>console.log(err))
+     await axios.delete(`https://lisa-first-po.herokuapp.com/api/v1/user-profile/delete/${e}`).then('user deleted').catch(err=>console.log(err))
      fetchUserProfile()
   }
  
@@ -42,7 +42,7 @@ const Myfavoriate = () => {
               {/* todo profile image */}
               <div className="img-delete">
                 <div className='left'>
-                    {userProfiles.userProfileImageLink ? <img src={`http://localhost:8080/api/v1/user-profile/${userProfiles.userProfileId}/image/download`} alt='Drag new below'></img>:<div className="upload"><p className='uw'>Upload a image below ~</p> </div>}
+                    {userProfiles.userProfileImageLink ? <img src={`https://lisa-first-po.herokuapp.com/api/v1/user-profile/${userProfiles.userProfileId}/image/download`} alt='Drag new below'></img>:<div className="upload"><p className='uw'>Upload a image below ~</p> </div>}
                     <Comment comment={comment} fetchUserProfile={fetchUserProfile} id={userProfiles.userProfileId}/>
                     
                    
