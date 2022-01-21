@@ -25,8 +25,8 @@ const Add=({userProfiles, setUserProiles})=>{
       return b.userProfileId - a.userProfileId
      })
      setUserProiles(sorted);
-     userProfiles.unshift(user)
-     console.log(userProfiles)
+    
+     
   })
       setName('')
       window.location.reload();

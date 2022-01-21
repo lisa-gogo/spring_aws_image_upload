@@ -20,6 +20,7 @@ const Comment =({comment,fetchUserProfile,id})=>{
  
  
    fetchUserProfile()
+   setChange(false)
 }
 
   return(<div className="addComment">

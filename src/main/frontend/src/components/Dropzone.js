@@ -9,20 +9,12 @@ function Dropzone({userProfileId,fetchUserProfile}) {
          
          const formData = new FormData();
          formData.append("file",file);
-          axios.get("https://lisa-first-po.herokuapp.com/api/v1/user-profile").then(
-            user=>{
-              var id = user.data.pop().userProfileId
-            // id is its true id 
-              axios.post(`https://lisa-first-po.herokuapp.com/api/v1/user-profile/${id}/image/upload`,
-         formData,{
-           headers:{
-             "Content-Type":"multipart/form-data"
-           }
-         }).then(()=>{console.log("file uploaded successfully");
-        fetchUserProfile();}).catch(err=>console.log(err));
-    }, [])
-            },[]
-          )
+
+          axios.post(`https://lisa-first-po.herokuapp.com/api/v1/user-profile/${userProfileId}/image/upload`,
+          formData,{ headers:{ "Content-Type":"multipart/form-data"}},[]).then(()=>console.log('file upload successfully')).catch(err=>console.log(err))
+
+         fetchUserProfile()
+        },[]);
          
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
   
@@ -36,6 +28,6 @@ function Dropzone({userProfileId,fetchUserProfile}) {
         }
       </div>
     )
-  }
+}
 
 export default Dropzone;

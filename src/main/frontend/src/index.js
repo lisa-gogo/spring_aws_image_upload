@@ -3,20 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {configureStore} from "@reduxjs/toolkit";
-import { Provider } from 'react-redux';
+// import {configureStore} from "@reduxjs/toolkit";
+// import { Provider } from 'react-redux';
 
-const store = configureStore({
-  reducer:{
+// const store = configureStore({
+//   reducer:{
     
-  }
-})
+//   }
+// })
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    {/* <Provider store={store}> */}
        <App />
-    </Provider>
+    {/* </Provider> */}
    
   
   </React.StrictMode>,
