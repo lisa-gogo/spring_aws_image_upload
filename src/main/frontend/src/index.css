@@ -23,6 +23,7 @@ code {
   background-color: white;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
 .input {
@@ -102,12 +103,11 @@ code {
   margin-top: 10px;
 }
 
-.comment {
-  margin-left: 25px;
-  margin-top: 10px;
-}
 .uw {
-  margin-top: 50%;
+}
+.comment {
+  position: absolute;
+  left: 205px;
 }
 
 .happyFace {
@@ -116,4 +116,33 @@ code {
 .left {
   margin-bottom: 0;
   padding-bottom: 0;
+}
+
+.addComment {
+  display: flex;
+  position: relative;
+}
+.commentWords {
+  font-size: medium;
+  font-weight: bolder;
+
+  width: 200px;
+}
+
+.redheart {
+  color: red;
+}
+
+.favoriatePage {
+  position: absolute;
+  right: 20%;
+  font-size: 20px;
+  padding: 4px;
+  top: 20px;
+  color: black;
+}
+
+.kitchen {
+  color: black;
+  text-decoration: none;
 }
