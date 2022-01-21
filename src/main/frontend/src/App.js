@@ -6,15 +6,23 @@ import Like from './components/Like';
 import Comment from './components/Comment';
 import Add from './components/Add';
 import {BrowserRouter, Link, Route,Routes} from "react-router-dom"
-
+import Loading from './components/Loading';
 import {useDropzone} from 'react-dropzone'
 import Myfavoriate from './components/Myfavoriate';
 
 
 const UserProfiles =({userProfiles,setUserProiles})=>{
+
+   var l = userProfiles.length
+   var profilesLoaded = l> 0
+   console.log(profilesLoaded)
+   console.log(userProfiles)
   
   const fetchUserProfile= async ()=>{ 
+      
+      
    await axios.get("https://lisa-first-po.herokuapp.com/api/v1/user-profile").then(res=>{
+      
        const sorted = res.data;
    
        sorted.sort((a,b)=>{
@@ -37,41 +45,40 @@ const UserProfiles =({userProfiles,setUserProiles})=>{
      await axios.delete(`https://lisa-first-po.herokuapp.com/api/v1/user-profile/delete/${e}`).then('user deleted').catch(err=>console.log(err))
      fetchUserProfile()
   }
+  //-----------------------
 
   return (
-    <div className='container'>
-    {userProfiles.map((userProfiles,index) =>{
-
-      var comment = userProfiles.comment
-      var like = userProfiles.userLikes
-      var   id = userProfiles.userProfileId
-       
-  
-    return(
-      <div className="wholeProfile"
-      key={index}>
-        {/* todo profile image */}
-        <div className="img-delete">
-          <div className='left'>
-              {userProfiles.userProfileImageLink ? <img src={`https://lisa-first-po.herokuapp.com/api/v1/user-profile/${userProfiles.userProfileId}/image/download`} alt='Drag new below'></img>:<div className="upload"><p className='uw'>Upload a image below ~</p> </div>}
-              <Comment comment={comment} fetchUserProfile={fetchUserProfile} id={userProfiles.userProfileId}/>
-              
-             
-          </div>
-          <div className='right'>
-                <div className="trash"><i pi ={userProfiles.userProfileId} onClick={()=>handleDelete(userProfiles.userProfileId)} id="trashBin" class="fas fa-trash-alt fa-2x"></i></div>
-                <Like like={like} fetchUserProfile={fetchUserProfile} id={id}/>
-                
-               
-          </div>
-        </div>
-        <h1 className="name">{userProfiles.username}</h1>
-        <p>date:{userProfiles.addDate}</p>
-        <Dropzone userProfileId={userProfiles.userProfileId} fetchUserProfile={fetchUserProfile}/>
-         <br/>
-      </div>
-    )
-  })}</div>)
+     
+     <>
+     {!profilesLoaded?(<Loading/>):(
+        <div className='container'>
+          {userProfiles.map((userProfiles,index) =>{
+            var comment = userProfiles.comment
+            var like = userProfiles.userLikes
+            var   id = userProfiles.userProfileId
+          return(
+            <div className="wholeProfile"
+            key={index}>
+              {/* todo profile image */}
+              <div className="img-delete">
+                <div className='left'>
+                    {userProfiles.userProfileImageLink ? <img src={`https://lisa-first-po.herokuapp.com/api/v1/user-profile/${userProfiles.userProfileId}/image/download`} alt='Drag new below'></img>:<div className="upload"><p className='uw'>Upload a image below ~</p> </div>}
+                    <Comment comment={comment} fetchUserProfile={fetchUserProfile} id={userProfiles.userProfileId}/>   
+                </div>
+                <div className='right'>
+                      <div className="trash"><i pi ={userProfiles.userProfileId} onClick={()=>handleDelete(userProfiles.userProfileId)} id="trashBin" class="fas fa-trash-alt fa-2x"></i></div>
+                      <Like like={like} fetchUserProfile={fetchUserProfile} id={id}/>
+                </div>
+              </div>
+              <h1 className="name">{userProfiles.username}</h1>
+              <p>date:{userProfiles.addDate}</p>
+              <Dropzone userProfileId={userProfiles.userProfileId} fetchUserProfile={fetchUserProfile}/>
+              <br/>
+            </div>
+          )
+        })}
+      </div>)}
+  </>)
 }
 
 
@@ -135,10 +142,15 @@ const Title=()=>{
 
 const Profiles =()=>{
   const [userProfiles, setUserProiles] = useState([])
+
+  
   return(
     <>
-      <Add userProfiles={userProfiles} setUserProiles={setUserProiles}/>
-      <UserProfiles userProfiles={userProfiles} setUserProiles={setUserProiles} />
+   
+     <div><Add userProfiles={userProfiles} setUserProiles={setUserProiles}/>
+      <UserProfiles userProfiles={userProfiles} setUserProiles={setUserProiles} /></div>
+     
+      
     </>
   )
 }
@@ -153,6 +165,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Profiles/>}/>
         <Route path='/likes' element={<Myfavoriate/>}/>
+        <Route path='/loading' element={<Loading/>}/>
       </Routes>
      </BrowserRouter>
     </div>
