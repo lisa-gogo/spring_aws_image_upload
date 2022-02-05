@@ -5,6 +5,7 @@ const Loading = () => {
       <div>
           <div className='connect'>
             Connecting to database .......
+            It may take a few minutes to get data. Thank you for your patience.
           </div>;
          
       </div>
